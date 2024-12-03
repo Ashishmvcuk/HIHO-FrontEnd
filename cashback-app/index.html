@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBG Cashback Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <img src="assets/logo.png" alt="LBG Logo" class="logo">
+        <h1>Cashback Hub</h1>
+    </header>
+
+    <main class="home">
+
+
+        <section class="rewards-progress">
+            <h2>Rewards Progress</h2>
+            <div class="progress-container">
+                <!-- Milestones -->
+                <div class="milestone-container">
+                    <div class="milestone" id="milestone-50">
+                        <div class="circle"></div>
+                        <span class="reward-label">£50<br><small>Free Coffee</small></span>
+                    </div>
+                    <div class="milestone" id="milestone-100">
+                        <div class="circle"></div>
+                        <span class="reward-label">£100<br><small>10% Cashback</small></span>
+                    </div>
+                    <div class="milestone" id="milestone-200">
+                        <div class="circle"></div>
+                        <span class="reward-label">£200<br><small>Gift Voucher</small></span>
+                    </div>
+                    <div class="milestone" id="milestone-300">
+                        <div class="circle"></div>
+                        <span class="reward-label">£300<br><small>Exclusive Deal</small></span>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            <p class="progress-note">
+                Current Spending: <strong>£120</strong>. Reach the next milestone to unlock rewards!
+            </p>
+        </section>
+        
+        
+
+        <!-- Spending Pot Tile -->
+        <section class="tile spending-pot">
+            <img src="assets/pot-icon.png" alt="Spending Pot Icon">
+            <div class="tile-content">
+                <h2>Spending Pot</h2>
+                <p><strong>Balance: £150.00</strong></p>
+                <button class="tile-button" id="send-to-savings">Send to Savings</button>
+            </div>
+        </section>
+
+        
+
+        <!-- Offers Tile -->
+        <section class="tile offers">
+            <img src="assets/offers-icon.png" alt="Offers Icon">
+            <div class="tile-content">
+                <h2>Activated Offers</h2>
+                <p>View cashback and discounts.</p>
+                <button class="tile-button" onclick="navigateToOffers()">View Offers</button>
+            </div>
+        </section>
+
+        <!-- Spending Insights Table -->
+        <section class="spending-insights">
+            <h2>Spending Insights</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Merchant</th>
+                        <th>Amount Spent (£)</th>
+                        <th>Cashback Earned (£)</th>
+                        <th>Total Saved (£)</th>
+                        <th>Spending Category</th>
+                    </tr>
+                </thead>
+                <br>
+                
+                <tbody id="spending-table-body">
+                    <!-- Rows populated dynamically via JavaScript -->
+                </tbody>
+            </table>
+        
+            <!-- Chart for Spending vs Savings -->
+            <h3>Savings Report</h3>
+            <div class="chart-container">
+                <canvas id="spendingSavingsChart"></canvas>
+            </div>
+        </section>
+        
+
+        <!-- Rewards Progress Bar -->
+        
+    </main>
+
+    <footer>
+        <p>© 2024 Lloyds Banking Group</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

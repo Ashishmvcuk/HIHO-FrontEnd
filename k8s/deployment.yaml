@@ -17,14 +17,3 @@ spec:
           image: hihoacr.azurecr.io/hiho-frontend:v1
           ports:
             - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: hiho-frontend-service
-spec:
-  selector:
-    app: hiho-frontend
-  ports:
-    - port: 80
-  type: LoadBalancer

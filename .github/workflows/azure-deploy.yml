@@ -1,50 +1,67 @@
-name: Azure Deployment
+name: Azure Deploy
 
 on:
   push:
     branches:
-      - main  # This will trigger the workflow when changes are pushed to the 'main' branch
+      - main  # Trigger deploy when changes are pushed to the main branch
+  pull_request:
+    branches:
+      - main  # Also trigger deploy when PR is merged into the main branch
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest  # The OS that will run the workflow
-
+    runs-on: ubuntu-latest
     steps:
-    # Step 1: Check out the repository
-    - name: Check out the repository
-      uses: actions/checkout@v3
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    # Step 2: Set up Docker Buildx for multi-platform support
+    # Set up Docker Buildx (needed for building multi-architecture images)
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    # Step 3: Log in to Azure using the service principal credentials stored in GitHub Secrets
+    # Log in to Azure using GitHub Secrets (using the service principal created earlier)
     - name: Log in to Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}  # Fetch the service principal credentials from GitHub secrets
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Step 4: Build the Docker image
+    # Log in to Azure Container Registry (ACR)
+    - name: Log in to ACR
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ secrets.ACR_NAME }}.azurecr.io
+        username: ${{ secrets.AZURE_CLIENT_ID }}
+        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+    # Build the Docker image
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/hiho-frontend:v1 .
+        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1 .
 
-    # Step 5: Log in to Azure Container Registry (ACR)
-    - name: Log in to ACR
-      run: |
-        az acr login --name ${{ secrets.REGISTRY_NAME }}
-
-    # Step 6: Push the Docker image to ACR
+    # Push the Docker image to ACR
     - name: Push Docker image to ACR
       run: |
-        docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/hiho-frontend:v1
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1
 
-    # Step 7: Deploy to AKS
-    - name: Set up kubeconfig
+    # Get AKS credentials
+    - name: Set up Kubernetes
+      uses: azure/setup-kubectl@v1
+      with:
+        azure-cli-version: 'latest'
+
+    - name: Get AKS credentials
       run: |
-        az aks get-credentials --resource-group Team24 --name hiho-nexus-cluster
+        az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
 
+    # Deploy to Kubernetes (AKS)
     - name: Deploy to AKS
       run: |
-        kubectl apply -f k8s/deployment.yaml  # Update with the actual path to your Kubernetes YAML file
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
 
+    # Verify the deployment (optional)
+    - name: Verify Deployment
+      run: |
+        kubectl get pods
+        kubectl get svc

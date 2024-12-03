@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hiho-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hiho-app
+  template:
+    metadata:
+      labels:
+        app: hiho-app
+    spec:
+      containers:
+      - name: hiho-app
+        image: <your-dockerhub-username>/<image-name>:v1
+        ports:
+        - containerPort: 80

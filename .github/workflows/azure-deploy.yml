@@ -28,12 +28,12 @@ jobs:
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1
 
       - name: Set up kubectl
-        uses: azure/setup-kubectl@v1  # Updated to v1 as v2 was not found
+        uses: azure/setup-kubectl@v2  # Updated to v1 as v2 was not found
         with:
           kubectl-version: 'latest'
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 

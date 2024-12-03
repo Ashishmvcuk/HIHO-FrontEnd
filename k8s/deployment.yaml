@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hiho-frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hiho-frontend
+  template:
+    metadata:
+      labels:
+        app: hiho-frontend
+    spec:
+      containers:
+        - name: hiho-frontend
+          image: hihoacr.azurecr.io/hiho-frontend:v1
+      imagePullSecrets:
+        - name: acr-secret

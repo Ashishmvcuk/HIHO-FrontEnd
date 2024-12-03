@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Activated Offers</h1>
+        <a href="index.html" class="back-button">Back</a>
+    </header>
+
+    <main>
+        <section class="offers-section">
+            <div class="offer-item" onclick="toggleOfferDetails(this)">
+                <div class="offer-summary">
+                    <img src="assets/offers-icon.png" alt="Tesco Offer">
+                    <div>
+                        <h2>Tesco</h2>
+                        <p>5% cashback on groceries</p>
+                    </div>
+                </div>
+                <div class="offer-details">
+                    <p><strong>Expires:</strong> 31 Dec 2024</p>
+                    <p><strong>Terms:</strong> Cashback applies to in-store and online purchases over £20.</p>
+                    <button class="redeem-button">Redeem Now</button>
+                </div>
+            </div>
+
+            <div class="offer-item" onclick="toggleOfferDetails(this)">
+                <div class="offer-summary">
+                    <img src="assets/offers-icon.png" alt="Costa Coffee Offer">
+                    <div>
+                        <h2>Costa Coffee</h2>
+                        <p>10% cashback on coffee</p>
+                    </div>
+                </div>
+                <div class="offer-details">
+                    <p><strong>Expires:</strong> 15 Jan 2025</p>
+                    <p><strong>Terms:</strong> Valid on all coffee and beverage purchases.</p>
+                    <button class="redeem-button">Redeem Now</button>
+                </div>
+            </div>
+
+            <div class="offer-item" onclick="toggleOfferDetails(this)">
+                <div class="offer-summary">
+                    <img src="assets/offers-icon.png" alt="IKEA Offer">
+                    <div>
+                        <h2>IKEA</h2>
+                        <p>10% cashback on furniture</p>
+                    </div>
+                </div>
+                <div class="offer-details">
+                    <p><strong>Expires:</strong> 30 Nov 2024</p>
+                    <p><strong>Terms:</strong> Applies to all furniture items purchased in-store or online.</p>
+                    <button class="redeem-button">Redeem Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Lloyds Banking Group</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

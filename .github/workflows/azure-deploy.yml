@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1 .
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:${{ github.run_id }} .
+          docker push ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:${{ github.run_id }} 
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1  # Updated to v1 as v2 was not found

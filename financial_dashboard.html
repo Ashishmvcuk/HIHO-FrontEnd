@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <h1>LBG Money Hub</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="financial_dashboard.html">Financial Dashboard</a></li>
+                <li><a href="personalized_offers.html">Personalized Offers</a></li>
+                <li><a href="tax_optimizer.html">Tax Optimizer</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <h2>Financial Dashboard</h2>
+            <p>Track, manage, and improve your finances with advanced tools.</p>
+
+            <div class="tools">
+                <div class="tool">
+                    <h3>Financial Health Score</h3>
+                    <form id="health-score-form">
+                        <label for="income">Monthly Income (£):</label>
+                        <input type="number" id="income" placeholder="e.g., 3000">
+                        <label for="expenses">Monthly Expenses (£):</label>
+                        <input type="number" id="expenses" placeholder="e.g., 2000">
+                        <label for="savings">Savings (£):</label>
+                        <input type="number" id="savings" placeholder="e.g., 10000">
+                        <label for="debts">Debts (£):</label>
+                        <input type="number" id="debts" placeholder="e.g., 5000">
+                        <button type="button" id="calculate-health-score">Calculate</button>
+                    </form>
+                    <div id="health-score-result"></div>
+                </div>
+
+                <div class="tool">
+                    <h3>Spend-Reduction Subscriptions</h3>
+                    <p>Track all your subscriptions and find cheaper options.</p>
+                    <button id="manage-subscriptions">Manage Subscriptions</button>
+                </div>
+
+                <div class="tool">
+                    <h3>Debt Management Assistant</h3>
+                    <p>Plan your debt repayment strategy effectively.</p>
+                    <button id="debt-management">Plan Debts</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Lloyds Banking Group</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

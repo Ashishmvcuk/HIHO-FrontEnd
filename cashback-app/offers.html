@@ -13,50 +13,21 @@
     </header>
 
     <main>
-        <section class="offers-section">
-            <div class="offer-item" onclick="toggleOfferDetails(this)">
-                <div class="offer-summary">
-                    <img src="assets/offers-icon.png" alt="Tesco Offer">
-                    <div>
-                        <h2>Tesco</h2>
-                        <p>5% cashback on groceries</p>
-                    </div>
-                </div>
-                <div class="offer-details">
-                    <p><strong>Expires:</strong> 31 Dec 2024</p>
-                    <p><strong>Terms:</strong> Cashback applies to in-store and online purchases over £20.</p>
-                    <button class="redeem-button">Redeem Now</button>
-                </div>
+        <section class="offers-summary">
+            <div class="current-savings">
+                <h2>Current Savings</h2>
+                <p><strong>£25.50</strong> saved so far.</p>
             </div>
-
-            <div class="offer-item" onclick="toggleOfferDetails(this)">
-                <div class="offer-summary">
-                    <img src="assets/offers-icon.png" alt="Costa Coffee Offer">
-                    <div>
-                        <h2>Costa Coffee</h2>
-                        <p>10% cashback on coffee</p>
-                    </div>
-                </div>
-                <div class="offer-details">
-                    <p><strong>Expires:</strong> 15 Jan 2025</p>
-                    <p><strong>Terms:</strong> Valid on all coffee and beverage purchases.</p>
-                    <button class="redeem-button">Redeem Now</button>
-                </div>
+            <div class="predicted-savings">
+                <h2>Predicted Savings</h2>
+                <p>Based on your spending trends, you are predicted to save <strong>£50.00</strong> this month.</p>
             </div>
+        </section>
 
-            <div class="offer-item" onclick="toggleOfferDetails(this)">
-                <div class="offer-summary">
-                    <img src="assets/offers-icon.png" alt="IKEA Offer">
-                    <div>
-                        <h2>IKEA</h2>
-                        <p>10% cashback on furniture</p>
-                    </div>
-                </div>
-                <div class="offer-details">
-                    <p><strong>Expires:</strong> 30 Nov 2024</p>
-                    <p><strong>Terms:</strong> Applies to all furniture items purchased in-store or online.</p>
-                    <button class="redeem-button">Redeem Now</button>
-                </div>
+        <section class="offers-list">
+            <h2>Your Cashback Earnings</h2>
+            <div id="offers-container">
+                <!-- Offers dynamically populated via JavaScript -->
             </div>
         </section>
     </main>

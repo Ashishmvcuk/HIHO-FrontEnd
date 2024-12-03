@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: hiho-frontend
-          image: hihoacr.azurecr.io/hiho-frontend:${{ github.run_id }} 
+          image: hihoacr.azurecr.io/hiho-frontend:latest 
       imagePullSecrets:
         - name: acr-secret

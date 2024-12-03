@@ -1,67 +1,39 @@
-name: Azure Deploy
+name: Build and Deploy to Azure Kubernetes Service (AKS)
 
 on:
   push:
     branches:
-      - main  # Trigger deploy when changes are pushed to the main branch
-  pull_request:
-    branches:
-      - main  # Also trigger deploy when PR is merged into the main branch
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-    # Checkout the repository
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    # Set up Docker Buildx (needed for building multi-architecture images)
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    # Log in to Azure using GitHub Secrets (using the service principal created earlier)
-    - name: Log in to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    # Log in to Azure Container Registry (ACR)
-    - name: Log in to ACR
+    - name: Log in to Azure Container Registry
       uses: docker/login-action@v2
       with:
         registry: ${{ secrets.ACR_NAME }}.azurecr.io
-        username: ${{ secrets.AZURE_CLIENT_ID }}
-        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+        username: ${{ secrets.ACR_USERNAME }}  # Azure service principal's appId
+        password: ${{ secrets.ACR_PASSWORD }}  # Azure service principal's password
 
-    # Build the Docker image
-    - name: Build Docker image
+    - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1 .
+        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/myapp:latest .
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/myapp:latest
 
-    # Push the Docker image to ACR
-    - name: Push Docker image to ACR
-      run: |
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/hiho-frontend:v1
-
-    # Get AKS credentials
-    - name: Set up Kubernetes
-      uses: azure/setup-kubectl@v1
+    - name: Set up Kubernetes CLI
+      uses: azure/setup-kubernetes-cli@v1
       with:
-        azure-cli-version: 'latest'
+        azure-cluster: ${{ secrets.AKS_CLUSTER_NAME }}
+        azure-resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
 
-    - name: Get AKS credentials
-      run: |
-        az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
-
-    # Deploy to Kubernetes (AKS)
     - name: Deploy to AKS
       run: |
         kubectl apply -f k8s/deployment.yaml
         kubectl apply -f k8s/service.yaml
-
-    # Verify the deployment (optional)
-    - name: Verify Deployment
-      run: |
-        kubectl get pods
-        kubectl get svc

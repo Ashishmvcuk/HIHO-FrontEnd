@@ -3,55 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LBG Money Hub</title>
+    <title>LBG Cashback Hub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="logo">
-            <h1>LBG Money Hub</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="financial_dashboard.html">Financial Dashboard</a></li>
-                <li><a href="personalized_offers.html">Personalized Offers</a></li>
-                <li><a href="tax_optimizer.html">Tax Optimizer</a></li>
-                <li><a href="feedback.html">Feedback</a></li>
-            </ul>
-        </nav>
+    <header class="app-header">
+        <img src="assets/lbglogo.png" alt="LBG Logo" class="logo">
+        <h1>Cashback Hub</h1>
     </header>
 
-    <main>
-        <section class="hero">
-            <h2>Welcome to LBG Money Hub</h2>
-            <p>Your all-in-one financial assistant to save more, spend smarter, and invest better.</p>
-            <a href="financial_dashboard.html" class="cta-button">Explore Now</a>
+    <main class="home">
+        <!-- Spending Pot Tile -->
+        <section class="tile spending-pot">
+            <img src="assets/pot-icon.png" alt="Spending Pot Icon">
+            <div class="tile-content">
+                <h2>Spending Pot</h2>
+                <p><strong>Balance: £150.00</strong></p>
+                <button class="tile-button" id="send-to-savings">Send to Savings</button>
+            </div>
         </section>
 
-        <section class="features">
-            <h2>Discover Our Features</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Financial Dashboard</h3>
-                    <p>Analyze your finances and improve your financial health.</p>
-                    <a href="financial_dashboard.html">Learn More</a>
+        <!-- Offers Tile -->
+        <section class="tile offers">
+            <img src="assets/offers-icon.png" alt="Offers Icon">
+            <div class="tile-content">
+                <h2>Activated Offers</h2>
+                <p>View cashback and discounts.</p>
+                <button class="tile-button" onclick="navigateToOffers()">View Offers</button>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section class="insights">
+            <h2>Quick Insights</h2>
+            <div class="insight-item">
+                <img src="assets/cashback-icon.png" alt="Cashback Icon">
+                <div>
+                    <h3>Total Cashback</h3>
+                    <p><strong>£25.00</strong></p>
                 </div>
-                <div class="feature-card">
-                    <h3>Personalized Offers</h3>
-                    <p>Find local deals, cashback opportunities, and more.</p>
-                    <a href="personalized_offers.html">Learn More</a>
+            </div>
+            <div class="insight-item">
+                <img src="assets/rewards-icon.png" alt="Rewards Icon">
+                <div>
+                    <h3>Upcoming Reward</h3>
+                    <p><strong>Free Coffee</strong></p>
                 </div>
-                <div class="feature-card">
-                    <h3>Tax Optimizer</h3>
-                    <p>Maximize tax benefits and track savings progress.</p>
-                    <a href="tax_optimizer.html">Learn More</a>
-                </div>
-                <div class="feature-card">
-                    <h3>Feedback</h3>
-                    <p>Share your thoughts and help us improve.</p>
-                    <a href="feedback.html">Submit Feedback</a>
-                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Map Section -->
+        <section class="dynamic-map">
+            <h2>Shops Near You</h2>
+            <div class="map-container">
+                <img src="assets/map-static.png" alt="Cashback Map" class="map-image" id="map">
+            </div>
+            <div class="map-filters">
+                <button class="map-filter" id="cashback-filter" onclick="showCashbackMap()">Cashback Shops</button>
+                <button class="map-filter" id="sustainable-filter" onclick="showSustainableMap()">Sustainable Shops</button>
             </div>
         </section>
     </main>

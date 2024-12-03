@@ -1,0 +1,50 @@
+name: Azure Deployment
+
+on:
+  push:
+    branches:
+      - main  # This will trigger the workflow when changes are pushed to the 'main' branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # The OS that will run the workflow
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Docker Buildx for multi-platform support
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Step 3: Log in to Azure using the service principal credentials stored in GitHub Secrets
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}  # Fetch the service principal credentials from GitHub secrets
+
+    # Step 4: Build the Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/hiho-frontend:v1 .
+
+    # Step 5: Log in to Azure Container Registry (ACR)
+    - name: Log in to ACR
+      run: |
+        az acr login --name ${{ secrets.REGISTRY_NAME }}
+
+    # Step 6: Push the Docker image to ACR
+    - name: Push Docker image to ACR
+      run: |
+        docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/hiho-frontend:v1
+
+    # Step 7: Deploy to AKS
+    - name: Set up kubeconfig
+      run: |
+        az aks get-credentials --resource-group Team24 --name hiho-nexus-cluster
+
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f k8s/deployment.yaml  # Update with the actual path to your Kubernetes YAML file
+

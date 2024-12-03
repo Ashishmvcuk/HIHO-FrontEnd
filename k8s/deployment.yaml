@@ -15,5 +15,5 @@ spec:
       containers:
         - name: hiho-frontend
           image: hihoacr.azurecr.io/hiho-frontend:v1
-          ports:
-            - containerPort: 80
+      imagePullSecrets:
+        - name: acr-secret
